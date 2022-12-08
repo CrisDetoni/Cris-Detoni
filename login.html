@@ -21,11 +21,11 @@
                 <h2>LOGIN</h2>
                 <div class="textfield">
                     <label for="usuario">Usuário</label>
-                    <input type="text" name="usuario" placeholder="Usuário"> 
+                    <input type="text" name="usuario" placeholder="Usuário" id="usuario"> 
                 </div>
                 <div class="textfield">
                     <label for="senha">Senha</label>
-                    <input type="password" name="senha" placeholder="Senha">
+                    <input type="password" name="senha" placeholder="Senha" id="senha">
                 </div>
                 <div class="checkbox">
                     <input type="checkbox" name="terms" id="terms">
@@ -52,12 +52,23 @@
     </div>
 
     <script>
+        // get the input
+        var nameInput = document.getElementById("usuario")
+        
         // secret password
         var password = "admin"
         var passwordInput = document.getElementById("senha")
 
+        // get the checkbox
+        var termsCheckBox = document.getElementById("terms")
+
         //get the modal
         var modal = document.getElementById("myModal")
+
+        var modalHeaderText = document.getElementById("modal-header-title")
+        var modalHeader = document.getElementById("modal-header")
+        var modalFooter = document.getElementById("modal-footer")
+        var modalBodyText = document.getElementById("modal-body-text")
 
         //get the button that opens the modal
         var btn = document.getElementById("btn-login")
@@ -66,7 +77,31 @@
         var span = document.getElementsByClassName("close")[0]     
         
         btn.onclick = function() {
-            modal.style.display = "block";
+
+            // define o nome no modal
+            var username = nameInput.value
+            modalHeaderText.innerText = `Olá ${username.toUpperCase()}!`
+
+            //verifico se aceitou os termos
+            if (termsCheckBox.checked == false){
+                modalHeaderText.innerText = "OPS! Algo errado não está certo."
+                modalBodyText.innerText = "Você precisa aceitar os termos do nosso site"
+                modalHeader.style.background = "#eb4034"
+                modalFooter.style.background = "#eb4034"
+
+            }else if (passwordInput.value != password){
+                modalHeaderText.innerText = "SENHA ESTÁ INCORRETA"
+                modalBodyText.innerText = "Verifique a senha digitada e tente novamente."
+                modalHeader.style.background = "#eb4034"
+                modalFooter.style.background = "#eb4034"
+            
+            } else {
+                modalBodyText.innerHTML = "Seja muito bem vindo ao nosso site! <br> Só aqui você estará feliz aprendendo HTML, CSS e JavaScript."
+                modalHeader.style.background = "#00ff88"
+                modalFooter.style.background = "#00ff88"
+            }
+
+            modal.style.display = "flex";
         }
         
         span.onclick = function() {
@@ -78,8 +113,6 @@
                 modal.style.display = "nome";
             }
         }
-
-
     </script>
 </body>
 </html>
